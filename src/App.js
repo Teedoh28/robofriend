@@ -15,7 +15,7 @@ class App extends Component{
         }
     }
     render(){
-        retusrn (
+        return (
             <div className='tc'>
                <h1>BOT Concepts</h1>
                <SearchBox />
