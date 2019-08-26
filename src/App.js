@@ -4,12 +4,16 @@ import {robots} from './robots';
 import SearchBox from './SearchBox';
 
  
-const state ={
-    robots:robots,
-    searchField: ''
-}
 
 class App extends Component{
+    
+    constructor(){
+        super()
+        this.state = {            
+                robots:robots,
+                searchField: ''            
+        }
+    }
     render(){
         return (
             <div className='tc'>
