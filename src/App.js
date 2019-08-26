@@ -4,10 +4,10 @@ import {robots} from './robots';
 import SearchBox from './SearchBox';
 
  
-/*const state ={
+const state ={
     robots:robots,
     searchField: ''
-}*/
+}
 
 const App = () =>{
     return (
