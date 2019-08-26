@@ -6,7 +6,7 @@ import SearchBox from './SearchBox';
  
 
 class App extends Component{
-    
+
     constructor(){
         super()
         this.state = {            
@@ -15,7 +15,7 @@ class App extends Component{
         }
     }
     render(){
-        return (
+        retusrn (
             <div className='tc'>
                <h1>BOT Concepts</h1>
                <SearchBox />
