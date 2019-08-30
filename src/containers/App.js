@@ -1,63 +1,52 @@
 import React, {Component} from 'react';
-import CardList from './CardList';
-//import {robots} from './robots';
-import SearchBox from './SearchBox';
+import CardList from '../components/CardList';
+import Scroll from '../components/Scroll';
+import SearchBox from '../components/SearchBox';
 
  
 
 class App extends Component{
 
     constructor(){
-        super()
+        super();
         this.state = {            
                 robots:[],
                 searchfield: ''            
-        }
-     
+        }     
     }
-
     componentDidMount(){
      
         fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => {
-          
+            .then(response => {          
                return response.json()
-            })
-            .then(users => {
-               
+            }).then(users => {               
                 for(var t=0; t < users.length;t++){                  
                     var topics = ['FORGET LEADS, BUILD NETWORKS','BUILD AN ECO-SYSTEM FOR US.','OMNICHANNEL ENGAGEMENT','24SEVEN – WE’RE WITH YOU ALWAYS'];
                     var rand = topics[Math.floor(Math.random() * topics.length)];
                     users[t].topic=rand;         
                 }
-                this.setState({robots: users});
-     
+                this.setState({robots: users});     
             });
     }
 
-    onSearchChange = (event) => {    
-
-        this.setState({searchfield: event.target.value});
-        
-  
+    onSearchChange = (event) => {   
+        this.setState({searchfield: event.target.value});  
     }
     render(){
-        
-        const filteredRobots  = this.state.robots.filter(robots =>{
-            return robots.topic.toLowerCase().includes(this.state.searchfield.toLowerCase());
+        const { robots , searchfield } = this.state;
+        const filteredRobots  = this.state.robots.filter(robot =>{
+            return robot.topic.toLowerCase().includes(searchfield.toLowerCase());
         });
-        if(this.state.robots.length === 0){
-            return <h1>Loading...</h1>
-
-        }else{
-        return (
+        return (!robots.length)?
+            <h1>Loading...</h1>
+        :        
             <div className='tc'>
                <h1 className='f1'>BOT Concepts</h1>
                <SearchBox searchChange={this.onSearchChange}/>
-               <CardList robots={filteredRobots}/>
-            </div>
-           );
-        }
+               <Scroll>
+                    <CardList robots={filteredRobots}/>
+               </Scroll>
+            </div>;
     }
     
 }
