@@ -14,8 +14,7 @@ class App extends Component{
                 searchfield: ''            
         }     
     }
-    componentDidMount(){
-     
+    componentDidMount(){     
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => {          
                return response.json()
