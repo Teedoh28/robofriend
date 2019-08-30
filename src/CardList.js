@@ -13,7 +13,7 @@ const CardList = ({robots}) =>{
             username={user.username} 
             email={user.email} 
             topic={user.topic} 
-            altDescription={user.altDescription}
+            
             />)
     
         })      
