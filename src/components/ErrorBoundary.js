@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { thisExpression } from '@babel/types';
+import React, {Component} from 'react';
+
 
 class ErrorBoundary extends Component {
 
-    constructor(){
+    constructor(props){
         super(props);
         this.state = {
             hasError: false
         }
     }
 
-    componentDidCatch(err , info){
+    componentDidCatch(error , info){
         this.setState({hasError: true});
-
     }
 
-    render(){
-        return (this.state.hasError)?this.state.children :<h1>Oops ... That is not good</h1> ;
+    render(){       
+        const { hasError } = this.state;        
+        return (hasError)? <h1>Oops ... That is not good</h1>:this.props.children;           
     }
     
 }
