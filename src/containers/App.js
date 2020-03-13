@@ -1,9 +1,22 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import CardList from '../components/CardList';
 import Scroll from '../components/Scroll';
 import SearchBox from '../components/SearchBox';
-import ErrorBoundary from '../components/ErrorBoundary'
+import ErrorBoundary from '../components/ErrorBoundary';
 
+import { setSearchField } from '../actions';
+
+const mapStateToProps =  state => {
+    return {
+        searchField: state.searchRobots.searchfield
+    }
+}
+const mapDispatchToProps  = (dispatch) => {
+    return {
+         onSearchChange: (event) => dispatch(setSearchField(event.target.value))  
+    }  
+}
  
 
 class App extends Component{
@@ -15,7 +28,8 @@ class App extends Component{
                 searchfield: ''            
         }     
     }
-    componentDidMount(){     
+    componentDidMount(){   
+        console.log(this.props.store);  
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => {          
                return response.json()
@@ -52,4 +66,4 @@ class App extends Component{
     }
     
 }
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
