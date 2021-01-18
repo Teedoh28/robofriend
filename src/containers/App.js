@@ -5,7 +5,7 @@ import Scroll from '../components/Scroll';
 import SearchBox from '../components/SearchBox';
 import ErrorBoundary from '../components/ErrorBoundary';
 
-import { setSearchField } from '../actions';
+import { setSearchField, requestRobots } from '../actions';
 
 const mapStateToProps =  state => {
     return {
@@ -17,7 +17,8 @@ const mapStateToProps =  state => {
 }
 const mapDispatchToProps  = (dispatch) => {
     return {
-         onSearchChange: (event) => dispatch(setSearchField(event.target.value))  
+         onSearchChange: (event) => dispatch(setSearchField(event.target.value))  ,
+         onRequestRobots: () => dispatch(requestRobots())
     }  
 }
  
@@ -38,8 +39,17 @@ class App extends Component{
                return response.json()
             }).then(users => {               
                 for(var t=0; t < users.length;t++){                  
-                    var topics = ['FORGET LEADS, BUILD NETWORKS','BUILD AN ECO-SYSTEM FOR US.','OMNICHANNEL ENGAGEMENT','24SEVEN – WE’RE WITH YOU ALWAYS'];
-                    var rand = topics[Math.floor(Math.random() * topics.length)];
+                    var topics = ['RETARGETING & PROSPECTING','FORGET LEADS, BUILD NETWORKS','BUILD AN ECO-SYSTEM FOR US.','OMNICHANNEL ENGAGEMENT','24SEVEN – WE’RE WITH YOU ALWAYS'];
+                    let rand = topics[Math.floor(Math.random() * topics.length)];
+                    if(typeof users[t-1] !== 'undefined' && users[t-1].topic === rand){
+                        let condition = true;
+                        while (condition) {
+                            rand = topics[Math.floor(Math.random() * topics.length)];
+                            if(users[t-1].topic !== rand){
+                                condition = false;
+                            }
+                        }
+                    }                    
                     users[t].topic=rand;         
                 }
                 this.setState({robots: users});     
